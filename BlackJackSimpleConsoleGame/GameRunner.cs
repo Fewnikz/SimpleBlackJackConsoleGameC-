@@ -31,16 +31,16 @@ public class GameRunner
         }
 
         // We instantiate objects
-        DealerLogic dealerLogic = new DealerLogic();
-        dealerLogic.DealerDrawsCards();
-        PlayerLogic playerLogic = new PlayerLogic();
-        playerLogic.PlayerDrawCards();
+        Players dealer = new Players();
+        dealer.DealerDrawsCards();
+        Players player = new Players();
+        player.PlayerDrawCards();
         
         // While the playerHolds and playerLoose is false do this
         while (!playerHolds && !playerLoose && !playerWins)
         {
             Console.WriteLine("Do you want to draw a card type - 1\nOr don't draw a card type - 2");
-            string ?playerInput = Console.ReadLine();
+            string? playerInput = Console.ReadLine();
             playerInput = playerInput.Trim();
         
             if (playerInput == "1")
@@ -48,19 +48,19 @@ public class GameRunner
                 Console.Clear();
                 
                 // Cards gets drawn
-                dealerLogic.DealerDrawsCards();
-                playerLogic.PlayerDrawCards();
+                dealer.DealerDrawsCards();
+                player.PlayerDrawCards();
                 
                 // Winning and loose logic
-                playerLoose = playerLogic.IfPlayerBust(playerLoose);
-                playerWins = dealerLogic.IfDealerBust(playerWins);
+                playerLoose = player.IfPlayerBust(playerLoose);
+                playerWins = dealer.IfDealerBust(playerWins);
             }
             if (playerInput == "2")
             {
                 Console.Clear();
-                dealerLogic.DealerDrawsCards();
-                playerLogic.ShowPlayerCards();
-                playerHolds = playerLogic.Hold(playerHolds);
+                dealer.DealerDrawsCards();
+                player.ShowPlayerCards();
+                playerHolds = player.Hold(playerHolds);
             }
         }
 
