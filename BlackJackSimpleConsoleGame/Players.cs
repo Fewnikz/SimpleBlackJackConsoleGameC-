@@ -2,13 +2,13 @@ namespace BlackJackSimpleConsoleGame;
 
 public class Players : GameLogic
 {
-    private int _playerValue;
-    private int _dealerValue;
+    public int PlayerValue;
+    public int DealerValue;
     
     // Method shows the players card
     public void ShowPlayerCards()
     {
-        Console.WriteLine($"You have {_playerValue} points");
+        Console.WriteLine($"You have {PlayerValue} points");
         Console.WriteLine($"Here is the cards you have drawn: ");
         Console.WriteLine("#############################");
         
@@ -21,7 +21,7 @@ public class Players : GameLogic
     }
     public void ShowDealerCards()
     {
-        Console.WriteLine($"Dealer has {_dealerValue} points");
+        Console.WriteLine($"Dealer has {DealerValue} points");
         Console.WriteLine($"Here is the cards the dealer have drawn: ");
         
         Console.WriteLine("#############################");
@@ -35,57 +35,91 @@ public class Players : GameLogic
     public void PlayerDrawCards()
     {
         // Using a tuple to group the two values and make them equal, to the returned value from the DrawCard method 
-        (PlayerCards, _playerValue) = DrawCard(PlayerCards, _playerValue);
+        (PlayerCards, PlayerValue) = DrawCard(PlayerCards, PlayerValue);
         ShowPlayerCards();
     }
     public void DealerDrawsCards()
     {
-        if (_dealerValue >= 17)
+        if (DealerValue >= 17)
         {
             ShowDealerCards();
         }
         else
         {
-            (DealerCards, _dealerValue) = DrawCard(DealerCards, _dealerValue);
+            (DealerCards, DealerValue) = DrawCard(DealerCards, DealerValue);
             ShowDealerCards();
         }
     }
     
     public bool Hold(bool playerHolds)
     {
-        Console.WriteLine($"You have {_playerValue} in total");
+        Console.WriteLine($"You have {PlayerValue} in total");
         return !playerHolds;
     }
 
     public bool IfPlayerBust(bool playerLoose)
     {
         // If the player has over 21 points, return bool false and display loose text
-        if (_playerValue > 21)
+        if (PlayerValue > 21)
         {
-            ShowPlayerCards();
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("You Loose!");
-            Console.WriteLine($"You have {_playerValue} points in total");
+            Console.WriteLine($"You have {PlayerValue} points in total");
             return !playerLoose;
         }
         return playerLoose;
     }
-    
-    public bool PlayerMessage(bool playerWins, string userName)
-    {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"{userName} has won!");
-        return playerWins;
-    }
 
     public bool IfDealerBust(bool playerWins)
     {
-        if (_dealerValue > 21)
+        if (DealerValue > 21 && PlayerValue <= 21)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"You have won!");
-            playerWins = true;
+            return true;
+        } 
+        
+        if (DealerValue > 21 && PlayerValue > 21)
+        {
+            return false;
+        }
+        
+        return playerWins;
+    }
+    
+    // Method that checks who has won
+    public bool CheckWins(bool playerWins)
+    {
+        if (PlayerValue > DealerValue)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"You have won!");
+            return true;
         }
         return playerWins;
+    }
+    
+    public bool CheckLoss(bool playerLoose)
+    {
+        if (PlayerValue < DealerValue && DealerValue <= 21)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"You have lost!");
+            return true;
+        }
+
+        if (PlayerValue == DealerValue)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"You have lost!");
+            return true;
+        }
+        return playerLoose;
+    }
+
+    public void RemoveAllCards()
+    {
+        PlayerCards.Clear();
+        DealerCards.Clear();
     }
 }
