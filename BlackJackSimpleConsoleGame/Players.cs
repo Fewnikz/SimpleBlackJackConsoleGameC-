@@ -62,7 +62,7 @@ public class Players : GameLogic
         // If the player has over 21 points, return bool false and display loose text
         if (PlayerValue > 21)
         {
-            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.Write("\x1b[38;2;255;0;0m");
             Console.WriteLine("You Loose!");
             Console.WriteLine($"You have {PlayerValue} points in total");
             return !playerLoose;
@@ -74,7 +74,7 @@ public class Players : GameLogic
     {
         if (DealerValue > 21 && PlayerValue <= 21)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\x1b[38;2;0;255;0m");
             Console.WriteLine($"You have won!");
             return true;
         } 
@@ -92,7 +92,7 @@ public class Players : GameLogic
     {
         if (PlayerValue > DealerValue)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\x1b[38;2;0;255;0m");
             Console.WriteLine($"You have won!");
             return true;
         }
@@ -103,14 +103,14 @@ public class Players : GameLogic
     {
         if (PlayerValue < DealerValue && DealerValue <= 21)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("\x1b[38;2;255;0;0m");
             Console.WriteLine($"You have lost!");
             return true;
         }
 
         if (PlayerValue == DealerValue)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("\x1b[38;2;255;0;0m");
             Console.WriteLine($"You have lost!");
             return true;
         }

@@ -5,6 +5,8 @@ class Game
 {
     static void Main(string[] args)
     {
+        // Clears the console and runs the game
+        Console.Clear();
         GameRunner gameRunner = new GameRunner();
         gameRunner.RunGame();
     }
