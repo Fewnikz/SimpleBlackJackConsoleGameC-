@@ -5,7 +5,7 @@ namespace BlackJackSimpleConsoleGame;
 public class CardDeck
 {
     // Array for looping through the ranks and suits. So I don't need to code like yandere dev... or whatever his name is
-    static string[] _rank = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+    static string[] _rank = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
     static string [] _suit = {"Club", "Diamond", "Heart", "Spade"};
     
     // Loops through the rank and suits array and adds Card object to cardDeck parameter

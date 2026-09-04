@@ -21,9 +21,18 @@ public class GameLogic : CardDeck
             case "K":
                 value += 10;
                 break;
-            case "A":
+        }
+
+        if (rank == "A")
+        {
+            if (value >= 11)
+            {
+                value += 1;
+            }
+            if (value <= 11)
+            {
                 value += 11;
-                break;
+            }
         }
         
         return value;
